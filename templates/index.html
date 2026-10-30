@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MazeQuest: Maze Game with Graph Algorithms</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<section id="auth" class="authwrap"><div class="card acard">
+<div class="big">🧭</div><h1>MazeQuest</h1><p class="sub" style="margin:0">Log in to save your wins and climb the leaderboard.</p>
+<div class="tabs"><button class="on" id="tin" type="button">Log in</button><button id="tup" type="button">Sign up</button></div>
+<form id="af"><input type="text" id="au" placeholder="Username" autocomplete="username" aria-label="Username"><input type="password" id="ap" placeholder="Password" autocomplete="current-password" aria-label="Password"><p class="err" id="aerr" role="alert"></p><button id="go" style="width:100%">Log in</button></form>
+<p class="note">Accounts are stored in this browser only. This is a front-end demo, not a secure server login.</p>
+</div></section>
+<div class="wrap" id="app" hidden>
+<header class="top"><div class="brand">🧭 MazeQuest</div><div class="who"><span id="uname"></span><button class="ghost" id="logout">Log out</button></div></header>
+<h1 id="hi">MazeQuest</h1>
+<p class="sub">Solve the maze yourself, then watch five graph algorithms attempt it. Muddy tiles cost 5 instead of 1, so the shortest route is not always the cheapest.</p>
+<div class="grid">
+<div class="card">
+<div class="hud"><div>Moves<b id="mv">0</b></div><div>Path cost<b id="cost">0</b></div><div>Time<b id="time">0.0 s</b></div></div>
+<canvas id="cv" aria-label="Maze board"></canvas>
+<div class="key"><span><i style="background:var(--me)"></i>You</span><span><i style="background:var(--mud)"></i>Mud (cost 5)</span><span><i style="background:var(--seen);opacity:.5"></i>Explored</span><span><i style="background:var(--path)"></i>Route</span></div>
+<p id="msg" aria-live="polite"></p>
+</div>
+<div class="side">
+<div class="card">
+<h2>New maze</h2>
+<div class="row">
+<label>Generator<select id="gen"><option value="dfs">Recursive backtracker (DFS)</option><option value="prim">Randomized Prim</option><option value="kruskal">Randomized Kruskal</option></select></label>
+<label>Size<select id="size"><option value="15">15 × 15</option><option value="25" selected>25 × 25</option><option value="35">35 × 35</option></select></label>
+<label>Loops<select id="loops"><option value="0">None</option><option value="0.04" selected>Some</option><option value="0.1">Many</option></select></label>
+<label class="chk"><input type="checkbox" id="mud" checked>Mud tiles</label>
+</div>
+<button id="new">Generate maze</button>
+</div>
+<div class="card" id="friends">
+<h2>Play with friends</h2>
+<div id="fhome">
+<div class="row"><button id="mkroom">Create a room</button></div>
+<div class="row"><input type="text" id="jcode" placeholder="Room code" maxlength="5" style="max-width:150px;margin:0"><button class="ghost" id="joinroom">Join</button></div>
+<div id="invs"></div>
+</div>
+<div id="froom" hidden>
+<p class="note" style="margin-top:0">Room <b id="rcode"></b> &middot; <span id="rstate"></span></p>
+<div class="row"><input type="text" id="rlink" readonly style="margin:0" aria-label="Invite link"><button class="ghost" id="copy">Copy link</button></div>
+<div class="row"><input type="text" id="inv" placeholder="Invite a friend by username" style="margin:0"><button class="ghost" id="sendinv">Invite</button></div>
+<ul class="pl" id="plist"></ul>
+<div class="row"><button id="startrace">Start race</button><button class="ghost" id="leave">Leave room</button></div>
+</div>
+<p class="err" id="ferr" role="alert"></p>
+</div>
+<div class="card">
+<h2>Solve from where you stand</h2>
+<div class="row"><label>Algorithm<select id="alg"></select></label></div>
+<div class="row"><button id="run">Run solver</button><button class="ghost" id="hint">Hint</button><button class="ghost" id="cmp">Compare all</button></div>
+<p class="note" id="res">Pick an algorithm and run it, or compare all five at once.</p>
+<table id="tbl"></table>
+</div>
+<div class="card"><h2>Leaderboard</h2><ol class="lb" id="lb"></ol><p class="note" id="prof"></p></div>
+<div class="card">
+<h2>How it works</h2>
+<p class="note" style="margin-top:0">The maze is an undirected graph: every cell is a vertex and every missing wall is an edge. BFS finds the fewest steps. DFS finds some route fast. Dijkstra and A* minimise total cost on weighted tiles, and A* uses a Manhattan-distance heuristic to explore fewer cells. Greedy best-first is fast but gives no optimality guarantee.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="modal" id="win" hidden><div class="card mbox"><div class="big">🏆</div><h2 id="wt"></h2><p class="note" id="wsub" style="margin:0 0 12px"></p><div id="wst"></div><div class="row" style="justify-content:center;margin-top:16px"><button id="again">Play again</button><button class="ghost" id="wout">Log out</button></div></div></div>
+<script src="/static/js/config.js"></script>
+<script src="/static/js/graph.js"></script>
+<script src="/static/js/game.js"></script>
+<script src="/static/js/analysis.js"></script>
+<script src="/static/js/render.js"></script>
+<script src="/static/js/input.js"></script>
+<script src="/static/js/ui.js"></script>
+<script src="/static/js/room.js"></script>
+<script src="/static/js/auth.js"></script>
+<script src="/static/js/main.js"></script>
+</body>
+</html>

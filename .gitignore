@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.pyc
+mazequest.db
+mazequest.log
+.DS_Store
